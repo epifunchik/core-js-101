@@ -5,7 +5,6 @@
  *                                                                                           *
  ******************************************************************************************* */
 
-
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -23,7 +22,6 @@ function concatenateStrings(value1, value2) {
   // console.log(newString.trim())
   return newString.trimEnd();
 }
-
 
 /**
  * Returns the length of given string.
@@ -71,7 +69,6 @@ function getStringFromTemplate(firstName, lastName) {
 function extractNameFromTemplate(value) {
   return value.slice(7, value.length - 1);
 }
-
 
 /**
  * Returns a first char of the given string.
@@ -148,7 +145,6 @@ function unbracketTag(str) {
   return str.replace('<', '').replace('>', '');
 }
 
-
 /**
  * Converts all characters of the specified string into the upper case
  *
@@ -206,13 +202,19 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  const a = '–';
-  const b = '|';
+  const a = '─';
+  const b = '│';
   const c = ' ';
-  const rez = `${a.repeat(width / 2)}\n${b.repeat(height / 4) + c.repeat((width / 2) - 2) + b.repeat(height / 4)}\n${a.repeat(width / 2)}`;
+  const d = '┌';
+  const e = '┐';
+  const t = '└';
+  const r = '┘';
+  const heightNew = `${b}${c.repeat(width - 2)}${b}\n`;
+  const rez = `${d}${a.repeat(width - 2)}${e}\n${heightNew.repeat(
+    height - 2,
+  )}${t}${a.repeat(width - 2)}${r}\n`;
   return rez;
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -231,6 +233,14 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(/* str */) {
+  // const alfa = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  // const letter = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  // const newStr = [];
+  // for (let i = 0; i < str.length; i + 1) {
+  //   const n = alfa.indexOf(str[i]);
+  //   newStr.push(letter[n]);
+  // }
+  // return newStr.join('');
   throw new Error('Not implemented');
 }
 
@@ -247,10 +257,17 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  let res = '';
+  if (typeof value === 'string') {
+    res = true;
+  } else if (typeof value === 'object' && value !== null && value.length > 0) {
+    res = true;
+  } else {
+    res = false;
+  }
+  return res;
 }
-
 
 /**
  * Returns playid card id.
@@ -276,10 +293,11 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  const res = cards.indexOf(value);
+  return res;
 }
-
 
 module.exports = {
   concatenateStrings,
