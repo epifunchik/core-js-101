@@ -229,8 +229,8 @@ function toCsvText(arr) {
  *   [ 0, 1, 2, 3, 4, 5 ] => [ 0, 1, 4, 9, 16, 25 ]
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
-function toArrayOfSquares(/* arr */) {
-  throw new Error('Not implemented');
+function toArrayOfSquares(arr) {
+  return arr.map((x) => x * x);
 }
 
 
@@ -249,6 +249,8 @@ function toArrayOfSquares(/* arr */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(/* arr */) {
+  // const newArr = arr.reduce(function r(x, y, z) { return newArr[z] = (x + y); });
+  // return newArr;
   throw new Error('Not implemented');
 }
 
@@ -264,6 +266,11 @@ function getMovingSum(/* arr */) {
  * [ "a" ] => []
  */
 function getSecondItems(/* arr */) {
+  // const newArr = [];
+  // for (let i = 0; i < arr.length; i + 2) {
+  //   newArr.push(arr[i]);
+  // }
+  // return newArr;
   throw new Error('Not implemented');
 }
 
@@ -300,8 +307,14 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  let newArr = [];
+  if (arr.length < 3) {
+    newArr = arr;
+  } else {
+    newArr = arr.slice(arr.length - 3, arr.length);
+  }
+  return newArr.sort(((a, b) => b - a));
 }
 
 
@@ -318,8 +331,9 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  const newArr = arr.filter((el) => el > 0 && typeof el === 'number');
+  return newArr.length;
 }
 
 /**
@@ -351,8 +365,9 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  const init = 0;
+  return arr.reduce((accum, current) => accum + current, init);
 }
 
 /**
@@ -367,8 +382,9 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  const newArr = arr.filter((el) => typeof el !== 'number' || el === 0);
+  return newArr.length;
 }
 
 /**
@@ -486,6 +502,7 @@ function getIntervalArray(/* start, end */) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(/* arr */) {
+  // return arr.filter(function(x) {return !(x === 1)});
   throw new Error('Not implemented');
 }
 
@@ -520,6 +537,9 @@ function distinct(/* arr */) {
  *   }
  */
 function group(/* array, keySelector, valueSelector */) {
+  // const k = array.reduce(function(key, value) {
+  //   return [...key, ...valueSelector]});
+  // return k;
   throw new Error('Not implemented');
 }
 
@@ -537,8 +557,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map(childrenSelector).flat();
 }
 
 
@@ -577,10 +597,25 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let newArr = [];
+  let head = [];
+  let tail = [];
+  let middle = [];
+  if (arr.length < 2) {
+    newArr.push(arr[0]);
+  } else if (arr.length % 2 === 0) {
+    tail = arr.slice((arr.length / 2), arr.length);
+    head = arr.slice(0, (arr.length / 2));
+    newArr = tail.concat(head);
+  } else {
+    tail = arr.slice((arr.length / 2) + 1, arr.length);
+    middle = arr.slice((arr.length / 2), (arr.length / 2) + 1);
+    head = arr.slice(0, (arr.length / 2));
+    newArr = tail.concat(middle, head);
+  }
+  return newArr;
 }
-
 
 module.exports = {
   findElement,
